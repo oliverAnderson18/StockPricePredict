@@ -1,2 +1,2 @@
-# StockPricePredict
-ML bot which predicts the price of future stocks.
+# AssetPricePredict
+ML bot which predicts the price of assets
