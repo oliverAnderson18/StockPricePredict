@@ -3,8 +3,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import pandas as pd
+import os
 
-asset = "PALANTIR"
+asset = "UBER"
 
 driver = webdriver.Firefox()
 driver.get("https://finance.yahoo.com")
@@ -30,6 +32,24 @@ try:
     dates_button.click()
 
     driver.find_element(By.XPATH, '//button[@value="5_Y"]').click()
+
+    tabla = driver.find_element(By.XPATH, '//tbody')
+    filas = tabla.find_elements(By.TAG_NAME, 'tr')
+
+    columnasNom = ["Date", "Open", "High", "Low", "Close", "Adj Close", "Volume"]
+
+    data = []
+    for fila in filas:
+        columnas = fila.find_elements(By.TAG_NAME, "td")
+        data.append([col.text for col in columnas])
+
+    df = pd.DataFrame(data, columns=columnasNom)
+
+    ruta_carpeta_data = "../Data"
+
+    df.to_excel(os.path.join(ruta_carpeta_data, "asset.xlsx"), index=False)
+
+    print("Dataframe of data related to the asset in the last 5 years stored!")
 
 
 finally:
