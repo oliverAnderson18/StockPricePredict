@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import pandas as pd
 import os
 
-asset = "UBER"
+asset = "HBAR-USD"
 
 driver = webdriver.Firefox()
 driver.get("https://finance.yahoo.com")
@@ -31,7 +31,7 @@ try:
 
     dates_button.click()
 
-    driver.find_element(By.XPATH, '//button[@value="5_Y"]').click()
+    driver.find_element(By.XPATH, '//button[@value="MAX"]').click()
 
     tabla = driver.find_element(By.XPATH, '//tbody')
     filas = tabla.find_elements(By.TAG_NAME, 'tr')
